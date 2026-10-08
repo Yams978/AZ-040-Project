@@ -1,28 +1,41 @@
 
 # AZ-040 - System Information Script
-# Get information about the local computer
 
 $computer = $env:COMPUTERNAME
 
-# Get operating system information
 $os = Get-CimInstance -ClassName Win32_OperatingSystem
 
-# Get C: drive information
+$os.Caption
+$os.LocalDateTime
+$os.LastBootUpTime
+
 $cDrive = Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DeviceID='C:'"
 
-# Calculate system uptime
+$cDrive.DeviceID
+$cDrive.Size
+$cDrive.FreeSpace
+
+[math]::Round($cDrive.Size / 1GB, 2)
+[math]::Round($cDrive.FreeSpace / 1GB, 2)
+
 $uptime = $os.LocalDateTime - $os.LastBootUpTime
 
-# Create a custom object with system information
+$uptime.Days
+$uptime.TotalHours
+[math]::Round($uptime.TotalHours, 2)
+
 $info = [PSCustomObject]@{
-    ComputerName      = $computer
-    OS                = $os.Caption
-    LastBootUpTime    = $os.LastBootUpTime
-    CDriveSize        = $cDrive.Size
-    CDriveFreeSpace   = $cDrive.FreeSpace
-    CDriveFreeSpaceGB = [math]::Round($cDrive.FreeSpace / 1GB, 2)
-    UptimeHours       = [math]::Round($uptime.TotalHours, 2)
+    Name            = $computer
+    OS              = $os.Caption
+    LocalTime       = $os.LocalDateTime
+    LastBootUpTime  = $os.LastBootUpTime
+    CDriveDeviceID  = $cDrive.DeviceID
+    CDriveSize      = [math]::Round($cDrive.Size / 1GB, 2)
+    CDriveFreeSpace = [math]::Round($cDrive.FreeSpace / 1GB, 2)
+    UptimeDays      = $uptime.Days
+    UptimeHours     = [math]::Round($uptime.TotalHours, 2)
 }
 
-# Display system information
-$info
+$info | Format-Table -AutoSize
+
+Get-Member -InputObject $info
