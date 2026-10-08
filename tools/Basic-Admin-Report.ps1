@@ -47,6 +47,7 @@ $reportProperties = @{
     LogicalProcessors = $system.NumberOfLogicalProcessors
     BIOSManufacturer  = $bios.Manufacturer
     BIOSVersion       = $bios.SMBIOSBIOSVersion
+BIOSReleaseDate = $bios.ReleaseDate
     SerialNumber      = $bios.SerialNumber
 }
 $reportProperties
@@ -66,3 +67,4 @@ $reportFolder
 $adminReport | Export-Csv "$reportFolder\AdminReport.csv" -NoTypeInformation
 
 Import-Csv "$reportFolder\AdminReport.csv"
+$bios.ReleaseDate
