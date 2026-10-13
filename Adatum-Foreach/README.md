@@ -45,3 +45,12 @@ spooler: running
 Validation: script successfully checked all three windows services using get-service inside a foreach loop. all three services running.
 
 Reflection: service statuses can differ between other students because computers may have different settings startup config or services running at the time of check.
+
+Challenge 04 - count local services
+
+Run location : LON-CL1
+Script: challenge04.ps1
+
+Validation: foreach loop counted 256 local windows services.
+
+Reflection: if I reset the counter inside the loop, it would keep starting over at zero. the final count would be incorrect because it woudlnt accumulate the toal number of services
