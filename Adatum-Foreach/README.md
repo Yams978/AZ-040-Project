@@ -6,51 +6,69 @@
 **Script:** Challenge01.ps1
 
 **Observed Result:**
+
 ```text
 Computer: LON-CL1
 Computer: LON-DC1
 Computer: LON-SVR1
 ```
 
-**Validation:** The script successfully displayed all three computer names in the correct order using a foreach loop.
+**Validation:** The script displayed all three computer names in the correct order using a foreach loop.
 
-**Reflection:** `$computers` contains the entire collection of computer names. `$computer` contains one computer name at a time during each iteration of the loop.
+**Reflection:** `$computers` contains the entire collection of computer names. `$computer` contains one computer name at a time.
 
+---
 
-Challenge 02 - Build Domain-Qualified Names
-Run Location: LON-CL1
-Script: Challenge02.ps1
+## Challenge 02 — Build Domain-Qualified Names
 
-Observed result:
+**Run Location:** LON-CL1  
+**Script:** Challenge02.ps1
 
-LON-CL1.ADATUM.COM
-LON-DC1.ADATUM.COM
-LON-SVR1.ADATUM.COM
+**Observed Result:**
 
-Validation: The script displayed all three fully qualified domain names in the correct order using a foreach loop.
+```text
+LON-CL1.Adatum.com
+LON-DC1.Adatum.com
+LON-SVR1.Adatum.com
+```
 
-Reflection: No, domain name does not prove that the computer is reachable. The script only combines the computer name with the domain name. It does not test network.
+**Validation:** The script displayed all three fully qualified domain names in the correct order using a foreach loop.
 
+**Reflection:** Printing a domain name does not prove the computer is reachable. The script only combines text and does not test connectivity.
 
-Challenge 03 - Inspect local services
-Run Location: LON-CL1
-Script : Challenge03.ps1
+---
 
-Observed result:
+## Challenge 03 — Inspect Local Services
 
-Eventlog: running
-w32time: running
-spooler: running
+**Run Location:** LON-CL1  
+**Script:** Challenge03.ps1
 
-Validation: script successfully checked all three windows services using get-service inside a foreach loop. all three services running.
+**Observed Result:**
 
-Reflection: service statuses can differ between other students because computers may have different settings startup config or services running at the time of check.
+```text
+EventLog: Running
+W32Time: Running
+Spooler: Running
+```
 
-Challenge 04 - count local services
+**Validation:** The script successfully checked all three Windows services using Get-Service inside a foreach loop.
 
-Run location : LON-CL1
-Script: challenge04.ps1
+**Reflection:** Service statuses can differ because computers may have different configurations, startup settings, or currently running services.
 
-Validation: foreach loop counted 256 local windows services.
+---
 
-Reflection: if I reset the counter inside the loop, it would keep starting over at zero. the final count would be incorrect because it woudlnt accumulate the toal number of services
+## Challenge 04 — Count Local Services
+
+**Run Location:** LON-CL1  
+**Script:** Challenge04.ps1
+
+**Observed Result:**
+
+```text
+Total services: 256
+```
+
+**Validation:** The foreach loop counted 256 services. I verified the result using `$services.Count`, which also returned 256.
+
+**Reflection:** Resetting the counter inside the loop would cause it to start over on every iteration, preventing an accurate total.
+
