@@ -1,0 +1,19 @@
+
+# Local tools and unrelated exercises
+tools/
+
+# Credentials and secrets
+*.pfx
+*.p12
+*.key
+*.pem
+*.secret
+.env
+.env.*
+
+# PowerShell transcripts and temporary files
+*.log
+*.tmp
+
+# Local editor files
+.vscode/
